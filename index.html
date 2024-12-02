@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload para Flask</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload de Imagem</h1>
+        <form id="uploadForm">
+            <input type="file" name="photo" id="photoInput" accept="image/*" required>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <!-- Exibição da imagem carregada -->
+        <div id="imagePreview" class="hidden">
+            <h2>Imagem Carregada:</h2>
+            <img id="previewImage" alt="Pré-visualização da imagem">
+        </div>
+
+        <!-- Exibição da resposta -->
+        <div id="responseContainer" class="hidden">
+            <h2>Predição</h2>
+            <p id="prediction"></p>
+            <p id="confidence"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('photoInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const previewImage = document.getElementById('previewImage');
+                    previewImage.src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('photo', document.getElementById('photoInput').files[0]);
+
+            try {
+                const response = await fetch('http://localhost:3000/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                // Atualizar exibição da resposta
+                document.getElementById('prediction').innerText = `Classe: ${result.prediction.predicted_class}`;
+document.getElementById('confidence').innerText = `Confiança: ${(result.prediction.confidence * 100).toFixed(2)}%`;
+
+                document.getElementById('responseContainer').classList.remove('hidden');
+            } catch (error) {
+                console.error('Erro:', error);
+                document.getElementById('responseContainer').classList.add('hidden');
+                alert('Erro ao enviar o arquivo!');
+            }
+        });
+    </script>
+</body>
+</html>
+

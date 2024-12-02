@@ -1,0 +1,76 @@
+/* Centraliza o conteúdo na tela */
+body {
+    background-color: #D8BFD8; /* Fundo lilás */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container principal */
+.container {
+    text-align: center;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+/* Título */
+h1 {
+    color: #6A0DAD; /* Roxo mais escuro */
+    margin-bottom: 20px;
+}
+
+/* Botão */
+button {
+    background-color: #6A0DAD;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #8B008B;
+}
+
+/* Input para upload */
+input[type="file"] {
+    margin-bottom: 15px;
+}
+
+/* Seção de pré-visualização da imagem */
+#imagePreview {
+    margin-top: 20px;
+}
+
+#imagePreview img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Seção de resposta */
+#responseContainer {
+    margin-top: 20px;
+    text-align: left;
+    padding: 10px;
+    border: 2px solid #6A0DAD;
+    border-radius: 10px;
+    background-color: #f9f4fa;
+}
+
+#responseContainer h2 {
+    color: #6A0DAD;
+}
+
+.hidden {
+    display: none;
+}
+
